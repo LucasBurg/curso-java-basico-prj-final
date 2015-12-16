@@ -1,2 +1,2 @@
-# curso-java-basico-prj-final
-Projeto final do curso Java BÃ¡sico
+# Curso Java Básico Projeto Final
+Projeto final do curso Java Básico
