@@ -1,7 +1,9 @@
 package br.com.lucasburg.dao;
 
+import java.sql.SQLException;
+
 public abstract class AbstractManipulation<T> {
-	abstract void insert(T entity);
-	abstract void update(T entity);
-	abstract void delete(T entity);
+	protected abstract void insert(T entity) throws SQLException;
+	protected abstract void update(T entity);
+	protected abstract void delete(T entity);
 }
