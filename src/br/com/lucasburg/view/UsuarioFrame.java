@@ -12,7 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import br.com.lucasburg.database.Adapter;
@@ -34,8 +33,8 @@ public class UsuarioFrame extends JFrame {
 		panel.setLayout(null);
 		
 		try {
-			this.adapter = Adapter.criar();
-			this.mapper = new UsuarioSelectMapper(adapter);
+			this.adapter    = Adapter.criar();
+			this.mapper     = new UsuarioSelectMapper(this.adapter);
 			this.maniMapper = new UsuarioManipulationMapper(this.adapter);
 		} catch (InstantiationException e1) {
 			// TODO Auto-generated catch block
@@ -123,10 +122,55 @@ public class UsuarioFrame extends JFrame {
 		
 		JButton btn2 = new JButton("Editar");
 		btn2.setBounds(120, 40, 100, 20);
+		
+		btn2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Usuario model = new Usuario();
+				model.setId(Long.parseLong(field1.getText()));
+				model.setNome(field2.getText());
+				model.setEmail(field3.getText());
+				try {
+					maniMapper.update(model);
+					table.load(mapper.fetchAll());
+					JOptionPane.showMessageDialog(null, "O usuário foi alterado!");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		
 		panel.add(btn2);
 		
 		JButton btn3 = new JButton("Deletar");
 		btn3.setBounds(230, 40, 100, 20);
+		
+		btn3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Usuario model = new Usuario();
+				model.setId(Long.parseLong(field1.getText()));
+				
+				try {
+					maniMapper.delete(model);
+					table.load(mapper.fetchAll());
+					JOptionPane.showMessageDialog(null, "O usuário foi deletado.");
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+			}
+		});
+		
 		panel.add(btn3);
 		
 		

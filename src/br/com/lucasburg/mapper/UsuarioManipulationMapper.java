@@ -27,15 +27,21 @@ public class UsuarioManipulationMapper extends AbstractManipulation<Usuario> {
 	}
 
 	@Override
-	protected void update(Usuario entity) {
-		// TODO Auto-generated method stub
-		
+	public void update(Usuario entity) throws SQLException {
+		String sql = "update usuario set nome = ?, email = ? where id = ?";
+		PreparedStatement stmt = Statement.prepare(this.adapter, sql);
+		stmt.setString(1, entity.getNome());
+		stmt.setString(2, entity.getEmail());
+		stmt.setLong(3, entity.getId());
+		stmt.execute();
 	}
 
 	@Override
-	protected void delete(Usuario entity) {
-		// TODO Auto-generated method stub
-		
+	public void delete(Usuario entity) throws SQLException {
+		String sql = "delete from usuario where id = ?";
+		PreparedStatement stmt = Statement.prepare(this.adapter, sql);
+		stmt.setLong(1, entity.getId());
+		stmt.execute();
 	}
 
 
