@@ -9,16 +9,16 @@ import br.com.lucasburg.database.Statement;
 import br.com.lucasburg.model.Usuario;
 
 
-public class UsuarioMapper extends AbstractManipulation<Usuario> {
+public class UsuarioManipulationMapper extends AbstractManipulation<Usuario> {
 	
 	private Connection adapter;
 	
-	public UsuarioMapper(Connection adapter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
-		this.adapter = adapter;//Adapter.criar();
+	public UsuarioManipulationMapper(Connection adapter) throws InstantiationException, IllegalAccessException, ClassNotFoundException, SQLException {
+		this.adapter = adapter;
 	}
 	
 	@Override
-	protected void insert(Usuario entity) throws SQLException {
+	public void insert(Usuario entity) throws SQLException {
 		String sql = "insert into usuario(nome, email) values(?, ?)";
 		PreparedStatement stmt = Statement.prepare(this.adapter, sql);
 		stmt.setString(1, entity.getNome());
